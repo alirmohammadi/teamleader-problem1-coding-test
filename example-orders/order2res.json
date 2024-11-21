@@ -1,0 +1,57 @@
+{
+  "afterDiscount": {
+    "customerId": 2,
+    "orderId": 2,
+    "products": [
+      {
+        "category": 2,
+        "discountedPrice": null,
+        "id": "B102",
+        "name": "Press button",
+        "number": 6,
+        "price": 4.99
+      }
+    ],
+    "total": 22.455
+  },
+  "discounts": [
+    {
+      "description": "Loyalty discount for spending over €1000",
+      "discount": {
+        "amount": 10,
+        "product": null,
+        "type": "percentage"
+      },
+      "type": "amount"
+    },
+    {
+      "description": "Buy 5, get 1 free on Switches.",
+      "discount": {
+        "product": {
+          "category": 2,
+          "discountedPrice": null,
+          "id": "B102",
+          "name": "Press button",
+          "number": null,
+          "price": 4.99
+        }
+      },
+      "type": "free_product"
+    }
+  ],
+  "order": {
+    "customerId": 2,
+    "orderId": 2,
+    "products": [
+      {
+        "category": 2,
+        "discountedPrice": null,
+        "id": "B102",
+        "name": "Press button",
+        "number": 5,
+        "price": 4.99
+      }
+    ],
+    "total": 24.95
+  }
+}

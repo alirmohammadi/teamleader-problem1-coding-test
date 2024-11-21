@@ -1,27 +1,126 @@
-# Coding Test
 
-Do you want to join the engineering team at [Teamleader](https://www.teamleader.eu/company/engineering)?
+# Discount Microservice
 
-We have created this exercise in order to gain insights into your development skills.
+## Setup
 
-## What to do?
+1. **Install dependencies:**
+    ```sh
+    composer install
+    ```
 
-We have several problems to solve. Our recruiter would have normally told you which one(s) to solve.
+2. **Run the service:** (You can use PHP's built-in server for simplicity)
+    ```sh
+       php -S localhost:8000 -t src/public src/public/router.php
+    ```
 
-You are free to use whatever technologies you want, unless instructed otherwise.
+## API Endpoints
 
-- [Problem 1 : Discounts](./1-discounts.md)
-- [Problem 2 : Ordering](./2-ordering.md)
-- [Problem 3 : Local development](./3-local-development.md)
+- **POST `/calculate-discount`** - Calculates discounts for an order
 
-## Procedure
+## Example Payload
 
-We would like you to send us (a link to) a git repository (that we can access).  
+```json
+{
+   "id": "1",
+   "customer-id": "1",
+   "items": [
+      {
+         "product-id": "B102",
+         "quantity": 10,
+         "unit-price": 4.99,
+         "total": 49.90
+      }
+   ],
+   "total": 49.90
+}
+```
 
-Make sure to add some documentation on how to run your app.
+## Example Response
 
-There is no time limit on this exercise, take as long as you need to show us your development skills.
+```json
+{
+   "order": {
+      "orderId": 1,
+      "customerId": 1,
+      "products": [
+         {
+            "id": "B102",
+            "name": "Press button",
+            "category": 2,
+            "price": 4.99,
+            "quantity": 10,
+            "discountedPrice": null
+         }
+      ],
+      "total": 49.90
+   },
+   "discounts": [
+      {
+         "discount": {
+            "product": {
+               "id": "B102",
+               "name": "Press button",
+               "category": 2,
+               "price": 4.99,
+               "quantity": null,
+               "discountedPrice": null
+            }
+         },
+         "type": "free_product",
+         "description": "Buy 5, get 1 free on Switches."
+      }
+   ],
+   "afterDiscount": {
+      "orderId": 1,
+      "customerId": 1,
+      "products": [
+         {
+            "id": "B102",
+            "name": "Press button",
+            "category": 2,
+            "price": 4.99,
+            "quantity": 11,
+            "discountedPrice": null
+         }
+      ],
+      "total": 49.90
+   }
+}
+```
 
-## Problems?
+## Add New Discount Strategy
 
-Feel free to contact us if something is not clear.
+To add new discount strategies, follow these steps:
+
+1. **Create a new class** in the `src/Discount` directory.
+2. **Implement the `DiscountStrategyInterface` interface.**
+3. **Define the `calculate` method** in your class. This method should return an array consisting of the `afterDiscount` order and the `DiscountDTO` object.
+
+Here's an example of how your class might look:
+
+```php
+namespace Discount;
+
+use DiscountStrategyInterface;
+use Order;
+use DiscountDTO;
+
+class NewDiscountStrategy implements DiscountStrategyInterface
+{
+    public function calculate(Order $order): array
+    {
+        // Your discount logic here
+        $afterDiscount = ...; // Modified $order after applying discounts
+        $discountDTO = ...; // Your discount details
+
+        return [$afterDiscount, $discountDTO];
+    }
+}
+```
+
+## Tests
+
+Run tests using PHPUnit:
+```sh
+vendor/bin/phpunit test
+```

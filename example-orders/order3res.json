@@ -1,0 +1,66 @@
+{
+  "afterDiscount": {
+    "customerId": 3,
+    "orderId": 3,
+    "products": [
+      {
+        "category": 1,
+        "discountedPrice": 7.8,
+        "id": "A101",
+        "name": "Screwdriver",
+        "number": 2,
+        "price": 9.75
+      },
+      {
+        "category": 1,
+        "discountedPrice": null,
+        "id": "A102",
+        "name": "Electric screwdriver",
+        "number": 1,
+        "price": 49.5
+      }
+    ],
+    "total": 65.1
+  },
+  "discounts": [
+    {
+      "description": "20% off on the cheapest Tool.",
+      "discount": {
+        "amount": 3.9,
+        "product": {
+          "category": 1,
+          "discountedPrice": 7.8,
+          "id": "A101",
+          "name": "Screwdriver",
+          "number": 2,
+          "price": 9.75
+        },
+        "type": "fixed"
+      },
+      "type": "amount"
+    }
+  ],
+  "order": {
+    "customerId": 3,
+    "orderId": 3,
+    "products": [
+      {
+        "category": 1,
+        "discountedPrice": null,
+        "id": "A101",
+        "name": "Screwdriver",
+        "number": 2,
+        "price": 9.75
+      },
+      {
+        "category": 1,
+        "discountedPrice": null,
+        "id": "A102",
+        "name": "Electric screwdriver",
+        "number": 1,
+        "price": 49.5
+      }
+    ],
+    "total": 69
+  }
+}
